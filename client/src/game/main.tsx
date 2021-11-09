@@ -30,6 +30,10 @@ const Main = () => {
     });
   };
 
+  useEffect(() => {
+    startGame();
+  }, []);
+
   return <IonPhaser initialize={initialised} game={config} id="phaser-app" />;
 };
 

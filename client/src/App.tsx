@@ -2,6 +2,7 @@ import Web3Context from "web3/context";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
+import Play from "pages/Play";
 
 interface NavItems {
   path: string;
@@ -11,8 +12,13 @@ interface NavItems {
 
 const nav: Array<NavItems> = [
   {
-    path: "/",
+    path: "/home",
     component: Home,
+    exact: true,
+  },
+  {
+    path: "/",
+    component: Play,
     exact: true,
   },
 ];
