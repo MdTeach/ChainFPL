@@ -5,18 +5,13 @@ import {
   Switch,
   Route,
   NavLink,
-  Redirect,
 } from "react-router-dom";
 
 import Chains from "components/ConnectChains";
-import TokenPrice from "components/TokenPrice";
 import { Menu, Layout } from "antd";
-import { Button, Space } from "antd";
 
 import "antd/dist/antd.css";
 import "./style.css";
-import Text from "antd/lib/typography/Text";
-import { log } from "console";
 import { ConnectedIcon } from "components/ConnectChains/ConnectChains";
 const { Header, Footer } = Layout;
 
@@ -51,23 +46,10 @@ const styles = {
   },
 } as const;
 const App = () => {
-  const {
-    authenticate,
-    isWeb3Enabled,
-    enableWeb3,
-    isAuthenticated,
-    isWeb3EnableLoading,
-  } = useMoralis();
+  const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading } =
+    useMoralis();
 
   useEffect(() => {
-    console.log(
-      "isWeb3Enabled",
-      isWeb3Enabled,
-      "isAuthenticated",
-      isAuthenticated,
-      "isWeb3EnableLoading",
-      isWeb3EnableLoading
-    );
     if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading) {
       enableWeb3();
     }
@@ -78,12 +60,19 @@ const App = () => {
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       <Router>
-        <Header style={styles.header}>
-          <Logo />
+        <Header
+          style={{
+            ...styles.header,
+          }}
+        >
+          <div style={{ flex: 1 }}>
+            <Logo />
+          </div>
           <Menu
             theme="light"
             mode="horizontal"
             style={{
+              flex: 3,
               display: "flex",
               fontSize: "17px",
               // fontWeight: "500",
@@ -101,11 +90,8 @@ const App = () => {
             <Menu.Item key="dex">
               <NavLink to="/1inch">🏦 Dex</NavLink>
             </Menu.Item>
-            <Menu.Item key="contract">
-              <NavLink to="/contract">📄 Contract</NavLink>
-            </Menu.Item>
           </Menu>
-          <div style={styles.headerRight}>
+          <div style={{ ...styles.headerRight, flex: "1" }}>
             {!isWeb3Enabled ? <Chains /> : <ConnectedIcon />}
           </div>
         </Header>
@@ -117,13 +103,18 @@ const App = () => {
           </Switch>
         </div>
       </Router>
+
+      <div style={{ textAlign: "center" }}>
+        <h1>Welcome to the Chain Tactics</h1>
+      </div>
+
       <Footer style={{ textAlign: "center" }}>Footer</Footer>
     </Layout>
   );
 };
 
 export const Logo = () => (
-  <div style={{ display: "flex" }}>
+  <div style={{ display: "flex", justifyContent: "center" }}>
     <svg
       width="60"
       height="38"
