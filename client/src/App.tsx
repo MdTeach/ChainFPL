@@ -8,12 +8,16 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import Chains from "components/Chains";
+import Chains from "components/ConnectChains";
 import TokenPrice from "components/TokenPrice";
 import { Menu, Layout } from "antd";
+import { Button, Space } from "antd";
+
 import "antd/dist/antd.css";
 import "./style.css";
 import Text from "antd/lib/typography/Text";
+import { log } from "console";
+import { ConnectedIcon } from "components/ConnectChains/ConnectChains";
 const { Header, Footer } = Layout;
 
 const styles = {
@@ -47,15 +51,21 @@ const styles = {
   },
 } as const;
 const App = () => {
-  const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading } =
-    useMoralis();
+  const {
+    authenticate,
+    isWeb3Enabled,
+    enableWeb3,
+    isAuthenticated,
+    isWeb3EnableLoading,
+  } = useMoralis();
 
   useEffect(() => {
     console.log(
-      "web3 enabled",
+      "isWeb3Enabled",
       isWeb3Enabled,
-      enableWeb3,
+      "isAuthenticated",
       isAuthenticated,
+      "isWeb3EnableLoading",
       isWeb3EnableLoading
     );
     if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading) {
@@ -96,7 +106,7 @@ const App = () => {
             </Menu.Item>
           </Menu>
           <div style={styles.headerRight}>
-            <Chains />
+            {!isWeb3Enabled ? <Chains /> : <ConnectedIcon />}
           </div>
         </Header>
         <div style={styles.content}>

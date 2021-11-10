@@ -1,6 +1,6 @@
 import Text from "antd/lib/typography/Text";
 import { Menu, Layout } from "antd";
-import Chains from "components/Chains";
+import Chains from "components/ConnectChains";
 import TokenPrice from "components/TokenPrice";
 // import ERC20Transfers from "components/ERC20Transfers";
 
