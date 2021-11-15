@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
+import Game from "game/main";
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,11 +8,11 @@ import {
   NavLink,
 } from "react-router-dom";
 
-import Chains from "components/ConnectChains";
 import { Menu, Layout } from "antd";
 
 import "antd/dist/antd.css";
 import "./style.css";
+import Chains from "components/ConnectChains";
 import { ConnectedIcon } from "components/ConnectChains/ConnectChains";
 const { Header, Footer } = Layout;
 
@@ -21,7 +22,7 @@ const styles = {
     justifyContent: "center",
     fontFamily: "Roboto, sans-serif",
     color: "#041836",
-    marginTop: "130px",
+    marginTop: "60px",
     padding: "10px",
   },
   header: {
@@ -58,7 +59,7 @@ const App = () => {
   }, [isAuthenticated, isWeb3Enabled]);
 
   return (
-    <Layout style={{ height: "100vh", overflow: "auto" }}>
+    <Layout>
       <Router>
         <Header
           style={{
@@ -105,7 +106,7 @@ const App = () => {
       </Router>
 
       <div style={{ textAlign: "center" }}>
-        <h1>Welcome to the Chain Tactics</h1>
+        <Game />
       </div>
 
       <Footer style={{ textAlign: "center" }}>Footer</Footer>

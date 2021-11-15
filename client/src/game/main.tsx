@@ -1,7 +1,6 @@
 import Phaser from "phaser";
 import { useState, useEffect } from "react";
 import { IonPhaser, GameInstance } from "@ion-phaser/react";
-import { Redirect } from "react-router";
 import Scenes from "./scenes";
 
 const Main = () => {
@@ -9,7 +8,7 @@ const Main = () => {
   const [config, setConfig] = useState<GameInstance>();
 
   const startGame = async () => {
-    let width = window.innerWidth;
+    let width = 1050;
     let height = width / 1.778;
 
     setConfig({
@@ -17,7 +16,7 @@ const Main = () => {
       physics: {
         default: "arcade",
         arcade: {
-          gravity: { y: 0 },
+          gravity: { y: 10 },
           debug: true,
         },
       },
@@ -26,6 +25,15 @@ const Main = () => {
         mode: Phaser.Scale.NONE,
         width,
         height,
+      },
+      fps: {
+        target: 60,
+      },
+      callbacks: {
+        preBoot: () => {
+          // Makes sure the game doesnt create another game on rerender
+          setInitialised(false);
+        },
       },
     });
   };
