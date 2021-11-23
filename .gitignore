@@ -1,2 +1,6 @@
 go.sum
 secret.json
+cache
+.vscode
+node_modules
+secrets.json
