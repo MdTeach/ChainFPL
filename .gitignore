@@ -4,3 +4,5 @@ cache
 .vscode
 node_modules
 secrets.json
+secret.json
+secrect.json
