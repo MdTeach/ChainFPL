@@ -36,7 +36,7 @@ contract Counter is KeeperCompatibleInterface {
         // We don't use the checkData in this example. The checkData is defined when the Upkeep was registered.
     }
 
-    function addAddrs(address _add) public {
+    function addAddrs(address _add) external {
         leagues.push(_add);
     }
 

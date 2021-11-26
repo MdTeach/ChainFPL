@@ -3,17 +3,21 @@ pragma solidity ^0.8.7;
 
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract APIConsumer is ChainlinkClient {
+contract APIConsumer is ChainlinkClient, ERC721 {
     using Chainlink for Chainlink.Request;
-    string public volume;
     address private oracle;
     bytes32 private jobId;
     uint256 private fee;
 
+    // FPL DAta
+    string public volume;
     mapping(string => address) public players;
+    uint256 playerCount;
+    uint8 price;
 
-    constructor() {
+    constructor() ERC721("_lname", "_ltitle") {
         setPublicChainlinkToken();
         oracle = 0xc57B33452b4F7BB189bB5AfaE9cc4aBa1f7a4FD8;
         jobId = "7401f318127148a894c00c292e486ffd";
@@ -23,6 +27,13 @@ contract APIConsumer is ChainlinkClient {
         players["Pirates"] = 0x5365222f776dFA3e2E22ad1c401B93b8732d186f;
 
         fee = 0.1 * 10**18; // (Varies by network and job)
+    }
+
+    function join(string memory name) public payable {
+        require(msg.value >= price, "ERR Price was less");
+        players[name] = msg.sender;
+        playerCount += 1;
+        _safeMint(msg.sender, playerCount);
     }
 
     function fetch(uint256 league_id) external returns (bytes32 requestId) {
