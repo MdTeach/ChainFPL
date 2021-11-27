@@ -1,6 +1,6 @@
 import useChain from "hooks/useChain";
 import { Button } from "antd";
-import { PolygonLogo } from "./Logos";
+import { ETHLogo } from "./Logos";
 import { useMoralis } from "react-moralis";
 
 const styles = {
@@ -20,15 +20,15 @@ const styles = {
 } as const;
 
 const menuItems = {
-  main: {
-    key: "0x89",
-    value: "Polygon",
-    icon: <PolygonLogo />,
-  },
+  // main: {
+  //   key: "0x89",
+  //   value: "Polygon",
+  //   icon: <PolygonLogo />,
+  // },
   test: {
-    key: "0x13881",
-    value: "Mumbai",
-    icon: <PolygonLogo />,
+    key: "0x4",
+    value: "Kovan",
+    icon: <ETHLogo />,
   },
 };
 
