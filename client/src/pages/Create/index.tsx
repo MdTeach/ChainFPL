@@ -15,8 +15,10 @@ import { useMoralisDapp } from "providers/MoralisDappProvider/MoralisDappProvide
 
 import { notification } from "antd";
 import { SmileOutlined } from "@ant-design/icons";
-
 import { useHistory } from "react-router-dom";
+import Web3 from "web3";
+
+const getWei = (eth: string) => Web3.utils.toWei(eth, "ether");
 
 const Gap = () => <div style={{ height: "2vh" }} />;
 
@@ -33,7 +35,7 @@ const App = () => {
   const handleSumbmmit = async () => {
     setIsLoading(true);
     await contract?.methods
-      .createNew(leagueName, leagueCode, parseInt(leagueFee) * Math.pow(10, 18))
+      .createNew(leagueName, leagueCode, getWei(leagueFee))
       .send({ from: context.walletAddress });
     openNotification();
     setIsLoading(false);

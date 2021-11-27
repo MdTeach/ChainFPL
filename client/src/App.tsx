@@ -17,8 +17,8 @@ import "antd/dist/antd.css";
 import "./style.css";
 import Chains from "components/ConnectChains";
 import { ConnectedIcon } from "components/ConnectChains/ConnectChains";
-import Join from "./pages/Join";
 import Create from "./pages/Create";
+import TokenDetail from "./pages/Detail";
 
 const { Header, Footer } = Layout;
 
@@ -116,7 +116,12 @@ const App = () => {
             <Route exact path="/">
               <Create />
             </Route>
-            <Route exact path="/join"></Route>
+            <Route exact path="/join">
+              <JoinGame />
+            </Route>
+            <Route path="/detail/:token_id">
+              <TokenDetail />
+            </Route>
             <Route exact path="/help"></Route>
           </Switch>
         ) : (

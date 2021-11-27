@@ -25,6 +25,43 @@ const FPL: AbiItem[] = [
     stateMutability: "nonpayable",
     type: "function",
   },
+  {
+    constant: false,
+    inputs: [],
+    name: "getAllLeagues",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "address",
+            name: "League",
+            type: "address",
+          },
+          {
+            internalType: "string",
+            name: "Name",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "Code",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "Fee",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct FPL.league[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function",
+  },
 ];
 
 const FPL_ARRDRS = Addresses.FPL;
