@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
-import Game from "game/main";
+import JoinGame from "pages/Join";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -106,7 +107,7 @@ const App = () => {
       </Router>
 
       <div style={{ textAlign: "center" }}>
-        <Game />
+        <JoinGame />
       </div>
 
       <Footer style={{ textAlign: "center" }}>Footer</Footer>
