@@ -10,17 +10,37 @@ contract FPL {
     struct league {
         address League;
         string Name;
+        string Code;
+        uint256 Fee;
     }
-    mapping(address => league) public UserLeagues;
+    league[] public UserLeagues;
     address public keepAdd;
 
-    function createNew() public {
+    //for debuging purpose
+    function createNewD() public {
         APIConsumer _api = new APIConsumer();
         address lg_add = address(_api);
-        UserLeagues[msg.sender] = league(lg_add, "Farmer League");
+        UserLeagues.push(league(lg_add, "dadda", "2351845", 0));
 
         // keeper push
         Keeper(keepAdd).addAddrs(lg_add);
+    }
+
+    function createNew(
+        string memory league_name,
+        string memory league_code,
+        uint256 league_fee
+    ) public {
+        APIConsumer _api = new APIConsumer();
+        address lg_add = address(_api);
+        UserLeagues.push(league(lg_add, league_name, league_code, league_fee));
+
+        // keeper push
+        Keeper(keepAdd).addAddrs(lg_add);
+    }
+
+    function getAllLeagues() public returns (league[] memory) {
+        return UserLeagues;
     }
 
     function setKeeper(address _kp) public {

@@ -1,9 +1,9 @@
 import { useMoralisDapp } from "providers/MoralisDappProvider/MoralisDappProvider";
 import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
+import { Contract } from "web3-eth-contract";
 import { AbiItem } from "web3-utils";
 import { FPL, FPL_ARRDRS } from "abis/FPL";
-import { Contract } from "web3-eth-contract";
 import LeagueItem from "./league";
 import { Typography, Button, Spin } from "antd";
 
@@ -54,7 +54,7 @@ const App = () => {
               key={el.League}
               style={{
                 padding: "1em",
-                border: "4px solid gray",
+                border: "6px solid #E7EAF3",
                 width: "40%",
                 margin: "35px auto",
                 borderRadius: "10px",
@@ -78,7 +78,7 @@ const App = () => {
                 </div>
               </div>
               <Gap />
-              <Link to={`/detail/${el.League}}`}>
+              <Link to={"/detail/" + el.League}>
                 <Button
                   type="primary"
                   size="large"
