@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import JoinGame from "pages/Join";
+import Help from "pages/Help";
 
 import {
   BrowserRouter as Router,
@@ -122,7 +123,9 @@ const App = () => {
             <Route path="/detail/:token_id">
               <TokenDetail />
             </Route>
-            <Route exact path="/help"></Route>
+            <Route exact path="/help">
+              <Help />
+            </Route>
           </Switch>
         ) : (
           <h1
