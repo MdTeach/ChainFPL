@@ -53,13 +53,19 @@ const styles = {
   },
 } as const;
 const App = () => {
-  const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading } =
-    useMoralis();
+  const {
+    isWeb3Enabled,
+    enableWeb3,
+    isAuthenticated,
+    isWeb3EnableLoading,
+    authenticate,
+  } = useMoralis();
 
   useEffect(() => {
     if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading) {
       enableWeb3();
     }
+    console.log(isAuthenticated, isWeb3Enabled);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, isWeb3Enabled]);
@@ -105,13 +111,26 @@ const App = () => {
 
         <div style={{ height: "10vh" }} />
 
-        <Switch>
-          <Route exact path="/">
-            <Create />
-          </Route>
-          <Route exact path="/join"></Route>
-          <Route exact path="/help"></Route>
-        </Switch>
+        {isWeb3Enabled ? (
+          <Switch>
+            <Route exact path="/">
+              <Create />
+            </Route>
+            <Route exact path="/join"></Route>
+            <Route exact path="/help"></Route>
+          </Switch>
+        ) : (
+          <h1
+            style={{
+              height: "100vh",
+              fontSize: "3em",
+              textAlign: "center",
+              marginTop: "20vh",
+            }}
+          >
+            Connect Wallet
+          </h1>
+        )}
       </Router>
     </Layout>
   );
