@@ -1,5 +1,5 @@
 const Addresses = {
-  FPL: "0x3b34D1b0F67E691e76E2BcdF1D0aD71C189023fb",
+  FPL: "0xCE562191e0F45A2bE7A74952Ef74dEEBE55b6Da0",
 };
 
 export { Addresses };

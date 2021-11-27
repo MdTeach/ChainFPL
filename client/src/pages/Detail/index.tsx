@@ -179,7 +179,7 @@ const GetMetaData = ({ addrs }: { addrs: string }) => {
     <div style={{ marginTop: "20px" }}>
       <div>
         <br />
-        <Title level={4}>{data.name} NFT Token</Title>
+        <Title level={4}>{data.name}</Title>
         <img
           src={data.image}
           alt="eqW"
@@ -187,6 +187,7 @@ const GetMetaData = ({ addrs }: { addrs: string }) => {
         />
         <br />
         <Title level={5}>{data.description}</Title>
+
         <br />
       </div>
     </div>
