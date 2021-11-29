@@ -173,21 +173,26 @@ const GetMetaData = ({ addrs }: { addrs: string }) => {
     })();
   }, []);
 
-  if (loading) return <div></div>;
+  // if (loading) return <div></div>;
 
   return (
     <div style={{ marginTop: "20px" }}>
       <div>
         <br />
-        <Title level={4}>{data.name}</Title>
+        <Title level={4}>
+          {/* {data.name}  */}
+          NFT Token
+        </Title>
         <img
-          src={data.image}
+          src={
+            "https://bafybeicmuyvvlanngyd2ojr5xbt5c3wzifs2jfw3mmf7hqhmueaykihipu.ipfs.dweb.link/nft.png"
+          }
+          // src={data.image}
           alt="eqW"
           style={{ width: "40%", margin: "20px auto", borderRadius: "20px" }}
         />
         <br />
         <Title level={5}>{data.description}</Title>
-
         <br />
       </div>
     </div>

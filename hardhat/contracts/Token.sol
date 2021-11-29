@@ -1,4 +1,6 @@
 // SPDX-License-Identifier: MIT
+// Debug purpose only
+// TODO: Remove this
 pragma solidity 0.8.7;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -39,9 +41,6 @@ contract League is ERC721, ChainlinkClient {
             this.fulfill.selector
         );
 
-        // request.add("get", "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH&tsyms=USD");
-        // request.add("path", "RAW.ETH.USD.VOLUME24HOUR");
-
         // Set the URL to perform the GET request on
         request.add(
             "get",
@@ -50,9 +49,6 @@ contract League is ERC721, ChainlinkClient {
         // request.add("path", "STANDINGS.PAGE");
         request.add("path", "standings.page");
 
-        // request.add("path", "standings.results.0.id");
-
-        // Multiply the result by 1000000000000000000 to remove decimals
         int256 timesAmount = 10**18;
         request.addInt("times", timesAmount);
 
@@ -67,11 +63,6 @@ contract League is ERC721, ChainlinkClient {
         called = true;
         volume = _volume;
     }
-
-    // constructor(uint _price, string memory _lname,string memory _ltitle)
-    // ERC721(_lname,_ltitle){
-    //     price = _price;
-    // }
 
     function RequestJoin(string memory _playerId) public payable {
         // require(msg.value >= price, "Price low");

@@ -3,23 +3,18 @@ pragma solidity ^0.7.0;
 import "@chainlink/contracts/src/v0.7/KeeperCompatible.sol";
 
 interface Api {
-    function fetch(uint256 league_id) external returns (bytes32 requestId);
+    function fetch() external returns (bytes32 requestId);
 }
 
 contract Counter is KeeperCompatibleInterface {
-    uint256 public counter;
     uint256 public immutable interval;
     uint256 public lastTimeStamp;
 
     address[] public leagues;
 
-    constructor(uint256 updateInterval) {
-        interval = updateInterval;
+    constructor() {
+        interval = 604800; //1 week
         lastTimeStamp = block.timestamp;
-
-        counter = 0;
-
-        leagues.push(0x5a40A6A272Dcc9789CE6f51264850025259593aE);
     }
 
     function checkUpkeep(
@@ -44,11 +39,10 @@ contract Counter is KeeperCompatibleInterface {
         bytes calldata /* performData */
     ) external override {
         lastTimeStamp = block.timestamp;
-        counter = counter + 1;
 
         for (uint256 i = 0; i < leagues.length; i++) {
             address a1 = leagues[i];
-            bytes32 d = Api(a1).fetch(2351845);
+            bytes32 d = Api(a1).fetch();
         }
     }
 }

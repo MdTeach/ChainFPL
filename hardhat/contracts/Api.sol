@@ -10,43 +10,50 @@ contract APIConsumer is ChainlinkClient, ERC721 {
     address private oracle;
     bytes32 private jobId;
     uint256 private fee;
+    string private tokenURI_str =
+        "ipfs://bafyreiclzbgq6cdaau5fmspx5l54hmixb55q6kktb4zvrkzkbgby7vpjve/metadata.json";
 
     // FPL DAta
     string public volume;
+    string public leagueCode;
     mapping(string => address) public players;
-    uint256 playerCount;
-    uint8 price;
+    uint256 public playerCount;
+    uint256 public price;
 
-    constructor() ERC721("_lname", "_ltitle") {
+    constructor(
+        string memory _name,
+        string memory _code,
+        uint256 _price
+    ) ERC721(_name, _name) {
         setPublicChainlinkToken();
         oracle = 0xc57B33452b4F7BB189bB5AfaE9cc4aBa1f7a4FD8;
         jobId = "7401f318127148a894c00c292e486ffd";
 
-        // init the players
-        players["Kings"] = 0xA60CF19C2152a84952747648a1C8b2623016c10d;
-        players["Pirates"] = 0x5365222f776dFA3e2E22ad1c401B93b8732d186f;
-
         fee = 0.1 * 10**18; // (Varies by network and job)
+        leagueCode = _code;
+        price = _price;
     }
 
     function join(string memory name) public payable {
-        require(msg.value >= price, "ERR Price was less");
+        require(msg.value >= price, "ETH Price was less");
         players[name] = msg.sender;
         playerCount += 1;
         _safeMint(msg.sender, playerCount);
     }
 
-    function fetch(uint256 league_id) external returns (bytes32 requestId) {
+    function fetch() external returns (bytes32 requestId) {
         Chainlink.Request memory request = buildChainlinkRequest(
             jobId,
             address(this),
             this.fulfill.selector
         );
+
+        // TODO: Fix this
+        // use of proxy server as the fpl api not working
+        // string memory _baseURL = "https://fplchainlink.herokuapp.com/data?id=";
+        // string memory _baseURL = "https://fantasy.premierleague.com/api/leagues-classic/";
         string memory _baseURL = "https://fplchainlink.herokuapp.com/data?id=";
-        // uint league_id = 2351845;
-        string memory _url = string(
-            abi.encodePacked(_baseURL, Strings.toString(league_id))
-        );
+        string memory _url = string(abi.encodePacked(_baseURL, leagueCode));
         request.add("get", _url);
         request.add("path", "standings.results.0.entry_name");
         return sendChainlinkRequestTo(oracle, request, fee);
@@ -60,7 +67,9 @@ contract APIConsumer is ChainlinkClient, ERC721 {
 
         // award winner
         if (players[winner] != address(0)) {
-            payable(players[winner]).transfer(0.001 ether);
+            // TODO: make the amt distributable
+            // payable(players[winner]).transfer(0.001 ether);
+            payable(players[winner]).transfer(price);
         }
     }
 
@@ -82,5 +91,14 @@ contract APIConsumer is ChainlinkClient, ERC721 {
 
     function getFunding() public payable returns (bool) {
         return true;
+    }
+
+    function tokenURI(uint256 _tokenId)
+        public
+        view
+        override
+        returns (string memory)
+    {
+        return tokenURI_str;
     }
 }

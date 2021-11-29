@@ -1,11 +1,16 @@
 const hre = require("hardhat");
 
 async function main() {
-  const Token = await hre.ethers.getContractFactory("League");
-  const token = await Token.deploy();
+  const Keeper = await hre.ethers.getContractFactory("Counter");
+  const keeper = await Keeper.deploy();
+  await keeper.deployed();
 
-  await token.deployed();
-  console.log("PepeToken deployed to:", token.address);
+  const FPL = await hre.ethers.getContractFactory("Counter");
+  const fpl = await FPL.deploy(keeper.address);
+  await fpl.deployed();
+
+  console.log("Keeper deployed to:", keeper.address);
+  console.log("FPL deployed to:", fpl.address);
 }
 
 main()
